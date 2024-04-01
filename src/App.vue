@@ -1,28 +1,49 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ProductCard
+      :id="id"
+      :nextProduct="this.nextProduct"
+      :firstProduct="this.firstProduct"
+      :key="id"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ProductCard from "./components/ProductCard.vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      id: 1,
+    };
+  },
+  methods: {
+    nextProduct() {
+      this.id++;
+    },
+    firstProduct() {
+      this.id = 1;
+    },
+  },
   components: {
-    HelloWorld
-  }
-}
+    ProductCard,
+  },
+};
 </script>
 
 <style>
+@media only screen and (min-width: 720px) {
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
