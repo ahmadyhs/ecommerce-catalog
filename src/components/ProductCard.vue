@@ -7,7 +7,7 @@
       src="../assets/bg-pattern.png"
     />
 
-    <div v-if="!error" class="card">
+    <div v-if="!error && product?.title" class="card">
       <div class="image-col">
         <img
           alt="product logo"
@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div v-if="error" class="sad-card">
+    <div v-else-if="error" class="sad-card">
       <img alt="sad-face" id="sad-face" src="../assets/sad-face.png" />
 
       <div class="unavailable">
@@ -68,6 +68,7 @@
         </button>
       </div>
     </div>
+    <p v-else class="loading">Loading...</p>
   </div>
 </template>
 
@@ -135,6 +136,7 @@ export default {
         }
       })
       .catch((err) => console.log(err));
+    this.isLoading = false;
   },
 };
 </script>
@@ -201,7 +203,9 @@ button {
 }
 
 .sad-card {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
   z-index: 10;
   width: 50%;
   margin-left: 1em;
@@ -265,9 +269,10 @@ button {
 }
 
 .card {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
   z-index: 10;
-  width: auto;
   margin-left: 1em;
   margin-right: 1em;
   padding-top: 1em;
@@ -345,5 +350,18 @@ button {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: var(--white);
+  display: grid;
+  align-items: center;
+  padding: 3em;
+  border-radius: 0.5rem;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
 </style>
